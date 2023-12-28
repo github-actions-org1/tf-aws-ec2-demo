@@ -1,7 +1,7 @@
 # RHEL 8.5
 data "aws_ami" "rhel9" {
   most_recent = true
-  owners = ["309956199498"] // Red Hat's Account ID
+  owners      = ["309956199498"] // Red Hat's Account ID
   filter {
     name   = "name"
     values = ["RHEL-9.*"]
