@@ -2,7 +2,7 @@ pipelineJob("Terraform Pipeline") {
     definition {
         cpsScm {
             scm {
-                git('https://github.com/github-actions-org1/tf-aws-ec2-website-demo.gitt')
+                git('https://github.com/github-actions-org1/tf-aws-ec2-demo.git')
             }
             scriptPath('Jenkinsfile')
         }
