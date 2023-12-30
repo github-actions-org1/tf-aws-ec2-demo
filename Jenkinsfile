@@ -32,7 +32,7 @@ pipeline {
         }
 
         // Approval stage 
-        stage ("DEV approval Destroy") {
+        stage ("Destroy approval") {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
                     echo "Taking approval from DEV Manager for QA Deployment"
@@ -53,21 +53,3 @@ pipeline {
         }        
     }    
 }
-
-    // stage('Validate Destroy') {
-    //   input {
-    //     message "Do you want to destroy Terraform Infra?"
-    //     ok "Destroy"
-    //   }
-    //   steps {
-    //     echo "Destroy Accepted"
-    //   }
-    // }
-
-    // stage('Destroy TF') {
-    //   steps {
-    //     sh '''
-    //       terraform destroy -auto-approve
-    //     '''
-    //   }
-    // }
