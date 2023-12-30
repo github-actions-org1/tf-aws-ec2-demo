@@ -7,8 +7,8 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
                     sh 'terraform init'
-                    sh 'terraform fmt'
                     sh 'terraform init -reconfigure'
+                    sh 'terraform fmt'
                 }
             }
         }
