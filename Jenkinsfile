@@ -10,8 +10,6 @@ pipeline {
       steps {
         sh '''
           ls -al
-          sed -i "s|/home/dungpham/.aws/credentials|/var/lib/jenkins/credentials|g" main.tf
-          cat main.tf
           terraform init
         '''
       }
