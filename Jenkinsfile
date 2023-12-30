@@ -19,7 +19,7 @@ stages {
    // Check out from GIT, Snippet Generato from pipeline Syntax --> Checkout: Check out from version control 
     stage ("Check from GIT") {
         steps {
-           git branch: 'master', credentialsId: 'ssh-private-repo', url: 'git@github.com:github-actions-org1/tf-aws-ec2-demo.git'
+           git branch: 'main', credentialsId: 'ssh-private-repo', url: 'https://github.com/github-actions-org1/tf-aws-ec2-demo.git'
               }
        }
        // Terraform Init Stage
