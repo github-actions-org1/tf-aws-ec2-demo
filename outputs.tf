@@ -1,10 +1,19 @@
-# Terraform Output Values
-output "instance_publicip" {
-  description = "EC2 Instance Public IP"
-  value       = aws_instance.ec2-demo.public_ip
+output "public_ip" {
+  value       = formatlist("%s: %s", aws_instance.ec2-demo.*.public_dns, aws_instance.ec2-demo.*.public_ip)
+  description = "Public IP Address of EC2 instance"
 }
 
-output "instance_publicdns" {
-  description = "EC2 Instance Public DNS"
-  value       = aws_instance.ec2-demo.public_dns
+output "instance_id" {
+  value       = aws_instance.ec2-demo.*.id
+  description = "Instance ID"
+}
+
+output "ssh_connection" {
+  value       = "ssh ec2-user@${aws_instance.ec2-demo.public_ip}"
+  description = "Connect via SSH"
+}
+
+output "web_connection" {
+  value       = "http://${aws_instance.ec2-demo.public_ip}"
+  description = "Connect via SSH"
 }
