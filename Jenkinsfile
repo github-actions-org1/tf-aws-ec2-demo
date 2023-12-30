@@ -42,7 +42,7 @@ pipeline {
                     }
                 }    
             }     
-        stage('Terraform Apply') {
+        stage('Terraform Destroy') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
                     sh 'terraform destroy -auto-approve tfplan -lock=false'
