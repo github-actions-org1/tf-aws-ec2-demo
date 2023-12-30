@@ -11,8 +11,6 @@ buildDiscarder(logRotator(numToKeepStr:'5'))
 }
 
 agent any
-tools {
-terraform 'terraform'
 }
 
 stages {
