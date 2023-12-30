@@ -14,11 +14,11 @@ pipeline {
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
             description: 'Terraform action to apply',
             name: 'action')
-        choice(
-            choices: ['dev', 'test', 'prod'],
-            description: 'deployment environment',
-            name: 'ENVIRONMENT')
-        string(defaultValue: "fcz", description: 'application system identifier', name: 'ASI')
+        // choice(
+        //     choices: ['dev', 'test', 'prod'],
+        //     description: 'deployment environment',
+        //     name: 'ENVIRONMENT')
+        // string(defaultValue: "fcz", description: 'application system identifier', name: 'ASI')
     }
     stages {
         stage('init') {
