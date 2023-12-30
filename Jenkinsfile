@@ -1,6 +1,8 @@
 pipeline {
     agent any
     stages {
+
+        // Init stage 
         stage('Terraform Init') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
@@ -10,6 +12,8 @@ pipeline {
                 }
             }
         }
+
+        // Plan stage 
         stage('Terraform Plan') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
@@ -17,6 +21,8 @@ pipeline {
                 }
             }
         }
+
+        // Apply stage 
         stage('Terraform Apply') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
@@ -25,7 +31,7 @@ pipeline {
             }
         }
 
-        // Approvel stage 
+        // Approval stage 
         stage ("DEV approval Destroy") {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
@@ -39,7 +45,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-                    sh 'terraform apply -auto-approve tfplan -lock=false'
+                    sh 'terraform destroy -auto-approve tfplan -lock=false'
                 }
             }
         }        
