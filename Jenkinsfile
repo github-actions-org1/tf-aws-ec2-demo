@@ -1,7 +1,7 @@
 pipeline {
-agent any
-}
-
+  agent any
+  }
+  
 stages {
    // Check out from GIT, Snippet Generato from pipeline Syntax --> Checkout: Check out from version control 
     stage ("Check from GIT") {
