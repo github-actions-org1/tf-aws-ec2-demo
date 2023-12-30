@@ -8,8 +8,6 @@ pipeline {
                 }
             }
         }
-    }
-    stages {
         stage('Terraform Plan') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
@@ -17,8 +15,6 @@ pipeline {
                 }
             }
         }
-    }
-    stages {
         stage('Terraform Apply') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
@@ -26,5 +22,5 @@ pipeline {
                 }
             }
         }
-    }
+    }    
 }
