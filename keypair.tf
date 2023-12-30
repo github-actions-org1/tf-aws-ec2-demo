@@ -49,7 +49,7 @@ resource "local_file" "private_key_pem" {
 }
 
 #Generates a key pair in AWS using the previous TLS key file 
-resource "aws_key_pair" "generated" {
+resource "aws_key_pair" "ssh_key" {
   key_name   = "AWSKey"
   public_key = tls_private_key.generated.public_key_openssh
 
