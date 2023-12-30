@@ -1,62 +1,97 @@
 pipeline {
-  agent any
-  environment {
-    TF_IN_AUTOMATION = 'true'
-    AWS_SHARED_CREDENTIALS_FILE='/var/lib/jenkins/.aws/credentials'
-  }
+// Jenkins AWS Access & Secret key
+// environment {
+// AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+// AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+// }
 
-  stages {
-    stage('Init TF') {
-      steps {
-        sh '''
-          ls -al
-          terraform init
-        '''
-      }
+options {
+// Only keep the 5 most recent builds
+buildDiscarder(logRotator(numToKeepStr:'5'))
+}
+
+agent any
+tools {
+terraform 'terraform'
+}
+
+stages {
+   // Check out from GIT, Snippet Generato from pipeline Syntax --> Checkout: Check out from version control 
+    stage ("Check from GIT") {
+        steps {
+           git branch: 'master', credentialsId: 'ssh-private-repo', url: 'git@github.com:github-actions-org1/tf-aws-ec2-demo.git'
+              }
+       }
+       // Terraform Init Stage
+    stage ("Terraform init") {
+        steps {
+            // sh 'terraform -chdir="./v.14/test_env" init -upgrade'
+             // terraform init -backend-config="bucket=kobai-s3-backend-terraform-state" -backend-config="key=stage-test-env/terraform.tfstate"
+                 sh 'terraform init -migrate-state' 
+              }
+    }
+    // Terraform fmt Stage
+    stage ("Terraform fmt") {
+        steps {
+            sh 'terraform fmt'
+        }
+    }
+    // Terraform Validate Stage
+    stage ("Terraform validate") {
+        steps {
+            sh 'terraform validate'
+        }
     }
 
-    stage('Plan TF') {
-      steps {
-        sh '''
-          terraform plan
-        '''
-      }
+    // Terraform Plan Stage
+    stage ("Terraform plan") {
+        steps {
+              sh 'terraform plan'
+           // sh 'terraform -chdir="./v.14/test_env" plan'
+            
+        }
     }
 
-    stage('Validate TF') {
-      input {
-        message "Do you want to apply this Plan?"
-        ok "Apply Plan"
-      }
-      steps {
-        echo 'Plan Accepted'
-      }
+    //  Terraform Apply Stage
+    stage ("Terraform apply") {
+        steps {
+             sh 'terraform --auto-approve'
+            //   sh 'terraform -chdir="./v.14/test_env" apply --auto-approve'
+           
+        }
     }
-
-    stage('Apply TF') {
-      steps {
-        sh '''
-          terraform apply -auto-approve
-        '''
-      }
+   // Approvel stage 
+   stage ("DEV approval Destroy") {
+        steps {
+           echo "Taking approval from DEV Manager for QA Deployment"
+           timeout(time: 7, unit: 'DAYS') {
+           input message: 'Do you want to Destroy the Infra', submitter: 'admin'
+           }
+        }
     }
-
-    stage('Validate Destroy') {
-      input {
-        message "Do you want to destroy Terraform Infra?"
-        ok "Destroy"
-      }
-      steps {
-        echo "Destroy Accepted"
-      }
+   // Destroy stage
+      stage ("Terraform Destroy") {
+         steps {
+            sh 'terraform  destroy --auto-approve'
+        }
+     }
+}
+post {
+    always {
+        echo 'This will always run'
     }
-
-    stage('Destroy TF') {
-      steps {
-        sh '''
-          terraform destroy -auto-approve
-        '''
-      }
+    success {
+        echo 'This will run only if successful'
     }
-  }
+    failure {
+        echo 'This will run only if failed'
+    }
+    unstable {
+        echo 'This will run only if the run was marked as unstable'
+    }
+    changed {
+        echo 'This will run only if the state of the Pipeline has changed'
+        echo 'For example, if the Pipeline was previously failing but is now successful'
+    }
+      }
 }
