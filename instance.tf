@@ -7,6 +7,9 @@ resource "aws_instance" "ec2-demo" {
   # public_key = var.ssh_key_pair
   vpc_security_group_ids = [aws_security_group.vpc-ssh.id, aws_security_group.vpc-demo.id]
   tags = {
-    "Name" = "ec2-demo"
+    Name = "ec2-demo"
+    Environment = "Developement"
+    OS          = "RedHat Linux"
+    Managed     = "Terraform"    
   }
 }
