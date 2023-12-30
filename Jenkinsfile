@@ -17,7 +17,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-                    sh 'terraform plan -out=tfplan -lock=false'
+                    sh 'terraform plan'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-                    sh 'terraform apply -out=tfplan -auto-approve -lock=false'
+                    sh 'terraform apply -auto-approve'
                 }
             }
         }
@@ -47,7 +47,7 @@ pipeline {
         stage('Terraform Destroy') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-                    sh 'terraform destroy -out=tfplan -auto-approve -lock=false'
+                    sh 'terraform destroy -auto-approve'
                 }
             }
         }        

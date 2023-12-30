@@ -5,7 +5,7 @@ resource "aws_instance" "ec2-demo" {
   user_data     = file("files/install-demo.sh")
   key_name      = aws_key_pair.ssh_key.key_name
   # public_key = var.ssh_key_pair
-  vpc_security_group_ids = [aws_security_group.vpc-ssh.id, aws_security_group.vpc-demo.id]
+  vpc_security_group_ids = [aws_security_group.web-sg.id]
   tags = {
     Name        = "ec2-demo"
     Environment = "Developement"
