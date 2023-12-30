@@ -26,7 +26,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-                    sh 'terraform apply -auto-approve -out=tfplan -lock=false'
+                    sh 'terraform apply -out=tfplan -auto-approve -lock=false'
                 }
             }
         }
@@ -47,9 +47,27 @@ pipeline {
         stage('Terraform Destroy') {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-                    sh 'terraform destroy -auto-approve -out=tfplan -lock=false'
+                    sh 'terraform destroy -out=tfplan -auto-approve -lock=false'
                 }
             }
         }        
     }    
 }
+
+    // stage('Validate Destroy') {
+    //   input {
+    //     message "Do you want to destroy Terraform Infra?"
+    //     ok "Destroy"
+    //   }
+    //   steps {
+    //     echo "Destroy Accepted"
+    //   }
+    // }
+
+    // stage('Destroy TF') {
+    //   steps {
+    //     sh '''
+    //       terraform destroy -auto-approve
+    //     '''
+    //   }
+    // }
