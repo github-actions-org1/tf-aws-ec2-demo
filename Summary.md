@@ -12,9 +12,7 @@ What you will learn:
 
 **Step 1**. Introduction 
 
-In this module, we'll be launching an EC2 instance, install Apache Web, httpd and create a simple website using Jenkins Pipeline. 
-
-In this module, we'll learn how to build & deploy application on web server using Jenkins CI/CD pipeline
+In this module, we'll be launching an EC2 instance, install Apache Web (httpd) and create a simple website using Jenkins Pipeline. 
 
 **Step 2**. Use terraform to automate: 
  1.⁠ ⁠Create a Key pair 
