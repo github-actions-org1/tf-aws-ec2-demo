@@ -65,7 +65,7 @@ jobs:
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -lock=false
+      run: terraform apply -input=false --auto-approve -var "ssh_key_pair=$SSH_KEY_PAIR" -lock=false
 
   terraform-destroy:
     name: 'Terraform Destroy'
