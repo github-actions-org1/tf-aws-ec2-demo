@@ -14,7 +14,7 @@
 
 ### Use when executing on GitLab / GitHub 
 resource "aws_key_pair" "ssh_key" {
-  key_name   = "ssh_key"
+  key_name   = "demo"
   public_key = var.ssh_key_pair
 }
 
