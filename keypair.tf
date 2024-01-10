@@ -13,10 +13,10 @@
 # }
 
 ### Use when executing on GitLab / GitHub 
-# resource "aws_key_pair" "ssh_key" {
-#   key_name   = "ssh_key"
-#   public_key = var.ssh_key_pair
-# }
+resource "aws_key_pair" "ssh_key" {
+  key_name   = "ssh_key"
+  public_key = var.ssh_key_pair
+}
 
 ### Use for Jenkins pipleline
 # resource "aws_key_pair" "ssh_key" {
@@ -25,10 +25,10 @@
 # }
 
 ### Use when executing locally 
-resource "aws_key_pair" "ssh_key" {
-  key_name   = "terraform-key"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
+# resource "aws_key_pair" "ssh_key" {
+#   key_name   = "terraform-key"
+#   public_key = file("~/.ssh/id_rsa.pub")
+# }
 
 #####################################
 
