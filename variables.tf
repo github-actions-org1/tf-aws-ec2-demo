@@ -12,13 +12,13 @@ variable "instance_type" {
   default     = "t3.small"
 }
 
-# variable "ssh_key" {
-#   default = "web-key.pem"
-# }
+variable "ssh_key" {
+  default = "demo.pem"
+}
 
-# variable "key_name" {
-#   default = "web-key"
-# }
+variable "key_name" {
+  default = "demo"
+}
 
 variable "ssh_key_pair" {
   default = ""
@@ -28,10 +28,4 @@ variable "ssh_key_pair" {
 variable "ssh_private_pair" {
   default = ""
   type    = string
-}
-
-variable "keypair" {
-  description = "AWS EC2 Key pair that need to be associated with EC2 Instance"
-  type        = string
-  default     = "demo"
 }
