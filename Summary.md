@@ -64,3 +64,12 @@ We Automate Static Website Deployment with CI/CD Pipeline to build and run a web
 3. Apply stage - The `terraform apply` command makes the changes defined by your plan to create or update resources.
 
 4. Destroy stage - The `terraform destroy` command terminates resources managed by your Terraform project. 
+
+```sh
+terraform init 
+terraform fmt
+terraform validate 
+terraform plan 
+terraform apply -auto-approve  
+terraform destroy -auto-approve
+```

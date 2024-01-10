@@ -25,11 +25,10 @@
 # }
 
 ### Use when executing locally 
-# resource "aws_key_pair" "ssh_key" {
-#   key_name   = "terraform-key"
-#   public_key = file("~/.ssh/id_rsa.pub")
-# }
-
+resource "aws_key_pair" "ssh_key" {
+  key_name   = "terraform-key"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
 
 #####################################
 
@@ -37,23 +36,23 @@
 
 #####################################
 
-# This utilizes the TLS provider to generate an SSH key
-resource "tls_private_key" "generated" {
-  algorithm = "RSA"
-}
+# # This utilizes the TLS provider to generate an SSH key
+# resource "tls_private_key" "generated" {
+#   algorithm = "RSA"
+# }
 
-# This uses terraform local provider in terraform.tf to save the TLS key to a file called "webkey.pem" in my local file system.
-resource "local_file" "private_key_pem" {
-  content  = tls_private_key.generated.private_key_pem
-  filename = "webkey.pem"
-}
+# # This uses terraform local provider in terraform.tf to save the TLS key to a file called "webkey.pem" in my local file system.
+# resource "local_file" "private_key_pem" {
+#   content  = tls_private_key.generated.private_key_pem
+#   filename = "webkey.pem"
+# }
 
-#Generates a key pair in AWS using the previous TLS key file 
-resource "aws_key_pair" "ssh_key" {
-  key_name   = "webkey"
-  public_key = tls_private_key.generated.public_key_openssh
+# #Generates a key pair in AWS using the previous TLS key file 
+# resource "aws_key_pair" "ssh_key" {
+#   key_name   = "webkey"
+#   public_key = tls_private_key.generated.public_key_openssh
 
-  lifecycle {
-    ignore_changes = [key_name]
-  }
-}
+#   lifecycle {
+#     ignore_changes = [key_name]
+#   }
+# }
