@@ -92,5 +92,5 @@ jobs:
 
     - name: Terraform Destroy
       id: destroy
-      run: terraform destroy --auto-approve -no-color
+      run: terraform destroy -input=false --auto-approve -lock=false
       continue-on-error: true
