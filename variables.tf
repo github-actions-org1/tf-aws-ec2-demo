@@ -12,15 +12,15 @@ variable "instance_type" {
   default     = "t3.small"
 }
 
-variable "ssh_key" {
-  default = "demo.pem"
+variable "sportfolio" {
+  default = "portfolio.pem"
 }
 
 variable "key_name" {
-  default = "demo"
+  default = "portfolio"
 }
 
-variable "ssh_key_pair" {
+variable "sportfolio_pair" {
   default = ""
   type    = string
 }

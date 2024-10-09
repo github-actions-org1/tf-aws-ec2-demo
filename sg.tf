@@ -2,8 +2,8 @@
 
 #CREATE AWS SECURITY GROUP TO ALLOW PORT 80,22,443, 8080 
 
-resource "aws_security_group" "web-sg" {
-  name        = "web-sg"
+resource "aws_security_group" "portfolio" {
+  name        = "portfolio"
   description = "Port 80, 22, 8080 and 443 from all world"
   ingress {
     from_port   = 80
